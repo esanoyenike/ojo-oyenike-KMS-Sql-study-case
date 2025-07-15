@@ -1,10 +1,10 @@
 # ojo-oyenike-KMS-Sql-study-case
-# Case Study Two (KMS SQL Study case)
+# Case Study Two (Kultra Mega Store Inventory SQL Study case)
 #### Company Overview
 Kultra Mega Stores (KMS), headquartered in Lagos, specialises in office supplies and
 furniture. Its customer base includes individual consumers, small businesses (retail), and
 large corporate clients (wholesale) across Lagos, Nigeria.
-#### Objective
+#### Objectives
 1. To analytical business intelligence to support the Abuja division of KMS.
 2. To achive the above using SQL.
 #### Procedure
@@ -58,6 +58,6 @@ in customer segment, Corporate, he made the order on	2010-11-01,  and the sales 
 Express Air is the fastest but the most expensive one, do you think the company
 appropriately spent shipping costs based on the Order Priority? Explain your answer
 
-- The shipping cost pattern does not appear to be a clear reflaction of the order priority. For instance, critical prders should be shiped theoruh express air and should have a highest cost due to the urgency in the order. In this order, the High priority order should follow, the the low and the not specified shpuld come last.
+- The shipping cost pattern does not appear to be a clear reflection of the order priority. For instance, critical prders should be shiped through Express air and should have a highest cost due to the urgency in the order. In this order, the High priority order should follow, the the low and the not specified shpuld come last.
 
 - Therefore, studing the data, it shows that the company did not appropraitely spend shipping costs based on the order priority. Express air was used to ship even products with low and not specified order priority as against the delivery truck that should have been used to safe cost.
