@@ -1,0 +1,142 @@
+select * from KLM
+
+======== Product ID with total sales
+SELECT Order_ID, SUM(Sales) AS TotalSales
+FROM KLM
+GROUP BY Order_ID
+ORDER BY TotalSales DESC
+
+
+ ------product category with Higest sales
+select top 1 product_category, cast(sum(sales) as decimal(10,2)) AS "Highest Sales"
+from KLM
+group by Product_Category
+order by [Highest Sales] desc
+
+
+------Average shipping cost per priority
+select order_priority,cast(round(avg(shipping_cost),3) As Decimal(10,3)) AS [Average Shipping Cost]
+from KLM
+Group by Order_Priority
+Order by [Average Shipping Cost] Desc
+
+-----------Top three region in sales
+select top 3 region, cast(sum(sales) As Decimal(10,3)) As top_region_sale
+from KLM
+group by Region
+order by top_region_sale Desc
+
+
+----------Bottom three region in sales
+select top 3 region, cast(sum(sales) as decimal(10,3)) As Bottom_region_sale
+from KLM
+group by Region
+order by Bottom_region_sale asc
+
+--------Total order
+select
+order_priority,ship_mode,count(order_ID) AS [Total Order]
+from KLM
+Group by order_priority,ship_mode
+Order by [Total order] Desc
+
+--------Total sales of appliances in Ortario
+SELECT 
+    Region,
+    Product_sub_Category,
+    CAST(SUM(Sales) AS DECIMAL(10,3)) AS ApplianceSalesOrtario
+FROM 
+    KLM
+WHERE 
+    Region = 'Ontario' AND Product_sub_Category = 'Appliances'
+GROUP BY 
+    Region, Product_sub_Category
+
+---------Bottom ten customer (advice)
+SELECT top 10 Customer_name, Customer_segment, region, order_quantity, shipping_cost, profit, discount, product_category,
+cast(SUM(Sales) as decimal(10,3)) AS TotalSales
+FROM KLM
+GROUP BY Customer_name, Customer_segment, region, order_quantity, shipping_cost, profit, discount, product_category
+ORDER BY TotalSales ASC
+
+------- The most costly shipping methods
+select top 1 ship_mode, shipping_cost
+from KLM
+order by shipping_cost desc
+
+----Most Valuable customer by product
+select top 10 customer_name, product_category, product_sub_category, cast(sum(sales) as decimal(10,3))
+as most_valuable_customer
+from KLM
+group by customer_name, Product_category, product_sub_category
+order by most_valuable_customer desc
+
+-----Small business customer with higest sales
+select top 1 customer_name, 
+  customer_segment,
+sum(sales) as higest_sales_small_business
+from KLM
+where customer_segment = 'small business'
+group by customer_name, customer_segment
+order by higest_sales_small_business desc
+
+------corporate customer place most order between 2009 -2012
+
+select  top 1 customer_name, customer_segment, Order_Date, sum(order_quantity)
+as corporate_order
+from KLM
+where Order_Date between '2009-01-01' and '2012-12-31'
+and customer_segment = 'corporate'
+group by customer_name, customer_segment, Order_Date
+order by corporate_order desc
+
+-------which customer was most profitable
+select top 1 customer_name, customer_segment, 
+sum(profit) as most_profitable
+from KLM
+where customer_segment = 'consumer'
+group by customer_name, Customer_Segment
+order by most_profitable desc
+
+-------customer that returned item
+
+
+Select distinct KLM.Customer_Name, KLM.Customer_Segment, KLM.Order_ID
+from KLM
+inner join  order_status
+on KLM.order_id = Order_status.Order_ID 
+
+
+
+CREATE VIEW vw_KLM_orderstatus_tbl AS
+SELECT * from KLM
+left join  order_status
+on KLM.order_id = order_status.Order_ID
+
+--------new ta ble
+create view vw_KLM_orderstatus_tbl AS
+select
+KLM.Order_ID, KLM.Customer_Segment, KLM.Product_Category, KLM.Customer_Name,
+Order_Status.Order_ID as status_order_id
+order_status.Status,
+from KLM
+left join Order_Status
+	on KLM.Order_ID = Order_Status.Order_ID
+
+
+--------- Company's order Priority
+select ship_mode, order_priority, sum(Order_Quantity) as total_qty_order_priority
+from KLM
+---where 
+--ship_mode IN ('delivery truck', 'express air')
+group by ship_mode, Order_Priority 
+order by total_qty_order_priority desc
+
+---- Company's order Priority with delivery truck and express air alone
+select ship_mode, order_priority, sum(Shipping_Cost) as total_shipping_cost_priority
+from KLM
+----where 
+----ship_mode IN ('delivery truck', 'express air')
+group by ship_mode, Order_Priority 
+order by total_shipping_cost_priority desc
+   
